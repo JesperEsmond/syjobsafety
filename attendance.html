@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출석</title>
+</head>
+<body>
+    <h1>출석</h1>
+    <button onclick="markAttendance()">출석</button>
+    <p id="attendanceMessage"></p>
+
+    <script>
+        function markAttendance() {
+            // 출석 완료 메시지 표시
+            document.getElementById("attendanceMessage").innerText = "출석 완료!";
+            // 출석된 사람의 정보를 output.html 페이지에 추가
+            const userName = '홍길동'; // 실제 로그인된 사용자 이름
+            const userWork = '배관'; // 실제 로그인된 사용자의 공종
+            const userContact = '010-1234-5678'; // 실제 로그인된 사용자 연락처
+            const userSignature = '싸인 이미지 URL'; // 실제 싸인 이미지 URL 또는 캔버스 데이터
+
+            // output.html에서 사용자의 정보를 표에 추가
+            const table = window.open("output.html", "출력하기", "width=800,height=600");
+            table.onload = function() {
+                const row = table.document.createElement('tr');
+                row.innerHTML = `<td>${userWork}</td><td>${userName}</td><td>${userContact}</td><td><img src="${userSignature}" width="50"></td>`;
+                table.document.querySelector("table").appendChild(row);
+            };
+        }
+    </script>
+</body>
+</html>

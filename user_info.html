@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 정보 확인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .button {
+            padding: 10px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>사용자 정보 확인</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>공종</th>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>싸인</th>
+                <th>편집</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody id="userInfoTable">
+            <!-- 사용자 정보가 여기에 추가됩니다 -->
+        </tbody>
+    </table>
+
+    <button class="button" onclick="window.location.href='admin_page.html'">돌아가기</button>
+
+    <script>
+        // 예시 사용자 데이터
+        const users = [
+            { work: '배관', name: '홍길동', contact: '010-1234-5678', signature: 'signature1.jpg' },
+            { work: '전기', name: '김철수', contact: '010-2345-6789', signature: 'signature2.jpg' }
+        ];
+
+        // 사용자 정보를 표에 동적으로 추가하는 함수
+        function populateUserInfoTable() {
+            const tableBody = document.getElementById("userInfoTable");
+            users.forEach((user, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${user.work}</td>
+                    <td>${user.name}</td>
+                    <td>${user.contact}</td>
+                    <td><img src="${user.signature}" width="50" alt="싸인"></td>
+                    <td><button class="button" onclick="editUser(${index})">편집</button></td>
+                    <td><button class="button" onclick="deleteUser(${index})">삭제</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // 사용자 정보 편집 기능
+        function editUser(index) {
+            alert(`사용자 ${users[index].name}의 정보를 편집합니다.`);
+            // 편집 로직을 추가할 수 있습니다.
+        }
+
+        // 사용자 정보 삭제 기능
+        function deleteUser(index) {
+            if (confirm(`사용자 ${users[index].name}을(를) 삭제하시겠습니까?`)) {
+                users.splice(index, 1);
+                populateUserInfoTable(); // 삭제 후 다시 테이블을 갱신
+            }
+        }
+
+        // 페이지 로드 시 사용자 정보 테이블 채우기
+        window.onload = populateUserInfoTable;
+    </script>
+
+</body>
+</html>
